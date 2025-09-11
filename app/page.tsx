@@ -6,7 +6,8 @@ import { TopSeller } from "./component/Home/TopSeller";
 import { AccordionDemo } from "./component/Home/Accordion";
 import Footer from "./component/Home/Footer";
 import BlogSection from "./component/Home/BlogSection";
-import Testimonial from "./component/Home/Testimonal";
+import { Testimonial } from "./component/Home/Testimonal";
+
 
 
 
