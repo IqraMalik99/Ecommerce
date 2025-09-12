@@ -3,6 +3,7 @@
 import React from "react";
 import { InfiniteMovingCards } from "../../../components/ui/infinite-moving-cards";
 
+
 export function Deal() {
   return (
     <div className="h-[30rem] antialiased bg-gray-50! rounded-md flex flex-col dark:bg-black dark:bg-grid-white/[0.05] relative overflow-hidden">

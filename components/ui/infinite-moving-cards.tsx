@@ -2,7 +2,7 @@
 import { FaShoppingCart } from "react-icons/fa";
 import { cn } from "@/lib/utils";
 import React, { useEffect, useState } from "react";
-
+import Image from "next/image";
 export const InfiniteMovingCards = ({
   items,
   direction = "left",
@@ -102,17 +102,19 @@ export const InfiniteMovingCards = ({
             >
               <div className="flex flex-col items-center text-center">
                 {/* Product Image with Discount Tag */}
-                <div className="relative w-full">
-                  <img
-                    src={item.image}
-                    alt={item.name}
-                    className="w-full h-[120px] object-cover rounded-lg mb-2"
-                  />
-                  {/* Discount Tag */}
-                  <span className="absolute top-2 right-2 bg-red-600 text-white text-xs font-semibold px-2 py-1 rounded-md shadow-md backdrop-blur-sm bg-opacity-80">
-                    -{item.discount}%
-                  </span>
-                </div>
+               <div className="relative w-full h-[120px] mb-2">
+  <Image
+    src={item.image}
+    alt={item.name}
+    fill
+    className="object-cover rounded-lg"
+  />
+  {/* Discount Tag */}
+  <span className="absolute top-2 right-2 bg-red-600 text-white text-xs font-semibold px-2 py-1 rounded-md shadow-md backdrop-blur-sm bg-opacity-80">
+    -{item.discount}%
+  </span>
+</div>
+
 
                 {/* Product Info */}
                 <h3 className="text-base font-semibold text-neutral-800 dark:text-gray-100">

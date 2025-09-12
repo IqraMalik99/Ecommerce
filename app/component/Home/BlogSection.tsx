@@ -1,5 +1,5 @@
 "use client";
-
+import Image from "next/image";
 import React from "react";
 import { motion } from "framer-motion";
 
@@ -20,7 +20,7 @@ const blogPosts = [
       "These trending accessories will level up your look instantly without breaking the bank.",
     date: "Sep 5, 2025",
     image:
-      "./images/cloth2.jpg",
+      "/images/cloth2.jpg",
   },
   {
     id: 3,
@@ -47,7 +47,7 @@ const blogPosts = [
       "These trending accessories will level up your look instantly without breaking the bank.",
     date: "Sep 5, 2025",
     image:
-      "./images/cloth2.jpg",
+      "/images/cloth2.jpg",
   },
   {
     id: 6,
@@ -74,7 +74,7 @@ const blogPosts = [
       "These trending accessories will level up your look instantly without breaking the bank.",
     date: "Sep 5, 2025",
     image:
-      "./images/cloth2.jpg",
+      "/images/cloth2.jpg",
   },
   {
     id: 9,
@@ -125,19 +125,21 @@ export default function BlogSection() {
               transition={{ duration: 0.5 }}
               className="min-w-[280px] max-w-[300px] rounded-xl bg-gray-300 shadow-md hover:shadow-lg transition group"
             >
-              <div className="overflow-hidden rounded-t-xl">
-                <img
-                  src={post.image}
-                  alt={post.title}
-                  className="w-full h-36 object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-              </div>
+             <div className="overflow-hidden rounded-t-xl relative h-36">
+  <Image
+    src={post.image}
+    alt={post.title}
+    fill
+    className="object-cover group-hover:scale-105 transition-transform duration-500"
+  />
+</div>
+
               <div className="p-4">
-                <p className="text-xs text-black">{post.date}</p>
+                <p className="text-xs text-gray-700">{post.date}</p>
                 <h3 className="mt-1 text-base font-semibold text-black group-hover:text-olive-400 transition">
                   {post.title}
                 </h3>
-                <p className="mt-1 text-xs text-black line-clamp-2">
+                <p className="mt-1 text-xs text-gray-700 line-clamp-2">
                   {post.description}
                 </p>
                 <a

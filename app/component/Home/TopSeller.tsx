@@ -4,17 +4,18 @@ import React, { useEffect, useState } from "react";
 import { Heart } from "lucide-react";
 import { FaShoppingCart, FaCrown } from "react-icons/fa";
 import { motion } from "framer-motion"; // ✅ Animation
+import Image from "next/image";
 
 // Main Component
 export function TopSeller() {
   const [pages, setPages] = useState(1);
 
   const defaultItems = [
-    { img: "./images/jewel4.jpg", name: "Classic Jewelry", price: "45", discount: "20%", topSeller: true, large: true },
-    { img: "./images/cloth1.jpg", name: "Running Sneakers", price: "89", discount: "15%", topSeller: false, large: false },
-    { img: "./images/men1.jpg", name: "Leather Jacket", price: "120", discount: "", topSeller: true, large: false },
-    { img: "./images/men2.jpg", name: "Jacket", price: "199", discount: "10%", topSeller: false, large: false },
-    { img: "./images/shoe1.jpg", name: "Running Sneakers", price: "60", discount: "5%", topSeller: false, large: false },
+    { img: "/images/jewel4.jpg", name: "Classic Jewelry", price: "45", discount: "20%", topSeller: true, large: true },
+    { img: "/images/cloth1.jpg", name: "Running Sneakers", price: "89", discount: "15%", topSeller: false, large: false },
+    { img: "/images/men1.jpg", name: "Leather Jacket", price: "120", discount: "", topSeller: true, large: false },
+    { img: "/images/men2.jpg", name: "Jacket", price: "199", discount: "10%", topSeller: false, large: false },
+    { img: "/images/shoe1.jpg", name: "Running Sneakers", price: "60", discount: "5%", topSeller: false, large: false },
   ];
 
   const handleCardClick = (item: any) => alert(`Clicked on ${item.name}`);
@@ -101,7 +102,7 @@ const ProductCard = ({
     >
       {/* Image */}
       <div className="relative w-full h-32">
-        <img src={img} alt={name} className="w-full h-full object-cover" />
+        <Image src={img} alt={name} className="w-full h-full object-cover"  fill/>
         {discount && (
           <span className="absolute top-1 left-1 bg-red-500/80 text-white text-xs font-semibold px-1 py-0.5 rounded">
             -{discount}

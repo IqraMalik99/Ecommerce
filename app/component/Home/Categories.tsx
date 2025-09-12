@@ -1,6 +1,6 @@
 "use client"
 import React from "react";
-
+import Image from "next/image";
 
 export const Categories = () => {
   const handleSearch=(data:string)=>{
@@ -15,10 +15,11 @@ export const Categories = () => {
           className="relative rounded-xl overflow-hidden cursor-pointer transition-all duration-300 hover:shadow-xl h-[80vh] min-h-[400px]"
           onClick={() => handleSearch("women")}
         >
-          <img
+          <Image
             src="/images/cloth2.jpg"
             alt="Women"
             className="w-full h-full object-cover"
+            fill
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
           <div className="absolute bottom-6 left-6 text-white">
@@ -35,10 +36,11 @@ export const Categories = () => {
             className="relative rounded-xl overflow-hidden cursor-pointer transition-all duration-300 hover:shadow-xl flex-1"
             onClick={() => handleSearch("men")}
           >
-            <img
+            <Image
               src="/images/men1.jpg"
               alt="Men"
               className="w-full h-full object-cover"
+              fill 
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
             <div className="absolute bottom-6 left-6 text-white">
@@ -53,9 +55,10 @@ export const Categories = () => {
             className="relative rounded-xl overflow-hidden cursor-pointer transition-all duration-300 hover:shadow-xl flex-1"
             onClick={() => handleSearch("jewellery")}
           >
-            <img
+            <Image
               src="/images/jewel5.jpg"
               alt="Jewelry"
+              fill
               className="w-full h-full object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>

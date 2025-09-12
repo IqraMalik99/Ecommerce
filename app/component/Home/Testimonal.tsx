@@ -3,6 +3,7 @@
 import { IconArrowLeft, IconArrowRight } from "@tabler/icons-react";
 import { motion, AnimatePresence } from "motion/react";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
 type Testimonial = {
   name: string;
@@ -111,10 +112,11 @@ export const Testimonial = ({
                   transition={{ duration: 0.4, ease: "easeInOut" }}
                   className="absolute inset-0"
                 >
-                  <img
+                  <Image
                     src={testimonial.src}
                     alt={testimonial.name}
                     className="h-full w-full rounded-2xl object-cover shadow-lg ring-1 ring-black/10"
+                    fill
                   />
                 </motion.div>
               ))}

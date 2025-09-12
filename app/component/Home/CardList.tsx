@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { FaHeart, FaShoppingCart, FaStar, FaRegHeart } from "react-icons/fa";
+import Image from "next/image";
 
 const defaultProducts = [
   {
@@ -218,10 +219,11 @@ const ProductCard = ({ product }: any) => {
       {/* Image */}
       <div className="h-40 w-full overflow-hidden relative">
         <div className="absolute inset-0 bg-gradient-to-t from-white/30 to-transparent z-10"></div>
-        <img
+        <Image
           src={product.image}
           alt={product.title}
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+          fill
         />
 
         {/* Rating badge */}

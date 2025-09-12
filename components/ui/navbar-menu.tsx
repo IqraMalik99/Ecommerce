@@ -1,14 +1,14 @@
 "use client";
-import React from "react";
-import { motion } from "motion/react";
-
-const transition = {
+import React, { AnchorHTMLAttributes, ReactNode } from "react";
+import { motion, Transition } from "framer-motion";
+import Image from "next/image";
+// ✅ Correctly typed transition
+const transition: Transition = {
   type: "spring",
   mass: 0.5,
   damping: 11.5,
   stiffness: 100,
   restDelta: 0.001,
-  restSpeed: 0.001,
 };
 
 export const MenuItem = ({
@@ -34,7 +34,7 @@ export const MenuItem = ({
         <motion.div
           initial={{ opacity: 0, scale: 0.85, y: 10 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={transition}
+          transition={transition} // ✅ just use like this
         >
           {active === item && (
             <div className="absolute top-[calc(100%_+_1.2rem)] left-1/2 transform -translate-x-1/2 pt-4">
@@ -58,11 +58,9 @@ export const MenuItem = ({
 export const Menu = ({
   setActive,
   children,
-
 }: {
   setActive: (item: string | null) => void;
   children: React.ReactNode;
-
 }) => {
   return (
     <nav
@@ -87,12 +85,14 @@ export const ProductItem = ({
 }) => {
   return (
     <a href={href} className="flex space-x-2">
-      <img
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <Image
         src={src}
         width={140}
         height={70}
         alt={title}
         className="shrink-0 rounded-md shadow-lg"
+        fill
       />
       <div>
         <h4 className="text-xl font-bold mb-1 text-black dark:text-white">
@@ -106,7 +106,11 @@ export const ProductItem = ({
   );
 };
 
-export const HoveredLink = ({ children, ...rest }: any) => {
+// ✅ No `any` left
+export const HoveredLink = ({
+  children,
+  ...rest
+}: AnchorHTMLAttributes<HTMLAnchorElement> & { children: ReactNode }) => {
   return (
     <a
       {...rest}
