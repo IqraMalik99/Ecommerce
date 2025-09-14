@@ -3,8 +3,10 @@ import "./globals.css";
 import type { Metadata } from "next";
 
 const poppins = Poppins({
-  subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
+  subsets: ["latin"],
+  display: "swap",
+  fallback: ["system-ui", "Arial", "sans-serif"], // fallback added
 });
 
 export const metadata: Metadata = {

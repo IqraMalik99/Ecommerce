@@ -87,12 +87,12 @@ export const ProductItem = ({
     <a href={href} className="flex space-x-2">
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <Image
-        src={src}
-        width={140}
-        height={70}
+       src={`${src}?w=180&h=120&fit=crop`}
+        width={180}
+        height={30}
         alt={title}
         className="shrink-0 rounded-md shadow-lg"
-        fill
+        unoptimized
       />
       <div>
         <h4 className="text-xl font-bold mb-1 text-black dark:text-white">

@@ -66,16 +66,6 @@ const defaultProducts = [
     category: "Bags"
   },
   {
-    id: 7,
-    title: "Luxury Perfume",
-    description: "Elegant fragrance with long-lasting scent",
-    price: "$119.99",
-    rating: 4.9,
-    reviews: 301,
-    image: "https://images.unsplash.com/photo-1592945403407-9de659572da6?auto=format&fit=crop&w=800&q=80",
-    category: "Beauty"
-  },
-  {
     id: 8,
     title: "Smart Fitness Tracker",
     description: "Track your activity and health metrics",

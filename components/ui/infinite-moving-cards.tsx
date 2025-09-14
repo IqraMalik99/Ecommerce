@@ -1,8 +1,9 @@
 "use client";
 import { FaShoppingCart } from "react-icons/fa";
 import { cn } from "@/lib/utils";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import Image from "next/image";
+
 export const InfiniteMovingCards = ({
   items,
   direction = "left",
@@ -11,6 +12,7 @@ export const InfiniteMovingCards = ({
   className,
 }: {
   items: {
+    id: number;
     image: string;
     name: string;
     description: string;
@@ -22,20 +24,17 @@ export const InfiniteMovingCards = ({
   pauseOnHover?: boolean;
   className?: string;
 }) => {
-  const containerRef = React.useRef<HTMLDivElement>(null);
-  const scrollerRef = React.useRef<HTMLUListElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const scrollerRef = useRef<HTMLUListElement>(null);
 
   const [start, setStart] = useState(false);
 
-  useEffect(() => {
-    addAnimation();
-  }, []);
-    const handleCartClick = (product:any) => {
-    
-      alert(`Added ${product} to cart`);
-    };
+  const handleCartClick = (productId: number) => {
+    alert(`Added ${productId} to cart`);
+  };
 
-  function addAnimation() {
+  // ✅ useCallback so deps are stable
+  const addAnimation = useCallback(() => {
     if (containerRef.current && scrollerRef.current) {
       const scrollerContent = Array.from(scrollerRef.current.children);
 
@@ -49,7 +48,11 @@ export const InfiniteMovingCards = ({
       getSpeed();
       setStart(true);
     }
-  }
+  }, [direction, speed]);
+
+  useEffect(() => {
+    addAnimation();
+  }, [addAnimation]);
 
   const getDirection = () => {
     if (!containerRef.current) return;
@@ -61,13 +64,9 @@ export const InfiniteMovingCards = ({
 
   const getSpeed = () => {
     if (!containerRef.current) return;
-    if (speed === "fast") {
-      containerRef.current.style.setProperty("--animation-duration", "20s");
-    } else if (speed === "normal") {
-      containerRef.current.style.setProperty("--animation-duration", "40s");
-    } else {
-      containerRef.current.style.setProperty("--animation-duration", "80s");
-    }
+    const duration =
+      speed === "fast" ? "20s" : speed === "normal" ? "40s" : "80s";
+    containerRef.current.style.setProperty("--animation-duration", duration);
   };
 
   return (
@@ -86,7 +85,7 @@ export const InfiniteMovingCards = ({
           pauseOnHover && "hover:[animation-play-state:paused]"
         )}
       >
-        {items.map((item, idx) => {
+        {items.map((item) => {
           const discountedPrice = (
             item.price -
             (item.price * item.discount) / 100
@@ -94,7 +93,7 @@ export const InfiniteMovingCards = ({
 
           return (
             <li
-              key={idx}
+              key={item.id}
               className="relative w-[200px] max-w-full shrink-0 rounded-xl border border-zinc-200 
                          bg-[linear-gradient(180deg,#fafafa,#f5f5f5)] px-4 py-3 
                          md:w-[280px] dark:border-zinc-700 
@@ -102,19 +101,20 @@ export const InfiniteMovingCards = ({
             >
               <div className="flex flex-col items-center text-center">
                 {/* Product Image with Discount Tag */}
-               <div className="relative w-full h-[120px] mb-2">
-  <Image
-    src={item.image}
-    alt={item.name}
-    fill
-    className="object-cover rounded-lg"
-  />
-  {/* Discount Tag */}
-  <span className="absolute top-2 right-2 bg-red-600 text-white text-xs font-semibold px-2 py-1 rounded-md shadow-md backdrop-blur-sm bg-opacity-80">
-    -{item.discount}%
-  </span>
-</div>
-
+                <div className="relative w-full h-[120px] mb-2">
+                  <Image
+                    src={`${item.image}`}
+                    alt={item.name}
+                    width={500}
+                    height={300}
+                    unoptimized
+                    className="object-cover rounded-lg"
+                  />
+                  {/* Discount Tag */}
+                  <span className="absolute top-2 right-2 bg-red-600 text-white text-xs font-semibold px-2 py-1 rounded-md shadow-md backdrop-blur-sm bg-opacity-80">
+                    -{item.discount}%
+                  </span>
+                </div>
 
                 {/* Product Info */}
                 <h3 className="text-base font-semibold text-neutral-800 dark:text-gray-100">
@@ -135,19 +135,17 @@ export const InfiniteMovingCards = ({
                 </div>
 
                 {/* Glassy Add to Cart Button */}
-               {/* Glassy Add to Cart Button */}
-<button
-  onClick={() => handleCartClick(item)}
-  className="mt-3 bg-gray-100/20 backdrop-blur-md border border-gray-300/40 
+                <button
+                  onClick={() => handleCartClick(item.id)}
+                  className="mt-3 bg-gray-100/20 backdrop-blur-md border border-gray-300/40 
              rounded-full px-4 py-1.5 flex items-center gap-2 
              text-sm font-medium text-gray-700 shadow-sm 
              hover:bg-gray-200/30 hover:shadow-md hover:scale-105 
              transition-all duration-300"
->
-  <FaShoppingCart className="text-gray-600 text-base" />
-  Add
-</button>
-
+                >
+                  <FaShoppingCart className="text-gray-600 text-base" />
+                  Add
+                </button>
               </div>
             </li>
           );

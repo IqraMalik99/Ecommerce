@@ -16,9 +16,12 @@ function Navbar({ className }: { className?: string }) {
 
   return (
     <div
-      className={cn("absolute top-0  inset-x-0 max-w-2xl mx-2 md:mx-auto z-80", className)}
+      className={cn(
+        "absolute top-0 inset-x-0 max-w-2xl mx-2 md:mx-auto z-80",
+        className
+      )}
     >
-      <Menu setActive={setActive} >
+      <Menu setActive={setActive}>
         {/* Men */}
         <MenuItem setActive={setActive} active={active} item="Men">
           <div className="flex flex-col space-y-4 text-sm">
@@ -41,23 +44,23 @@ function Navbar({ className }: { className?: string }) {
 
         {/* Bags */}
         <MenuItem setActive={setActive} active={active} item="Bags">
-          <div className="grid md:grid-cols-3 grid-cols-1 max-w-screen  gap-2 md:gap-6 text-sm p-4">
+          <div className="grid md:grid-cols-3 grid-cols-1 max-w-screen gap-2 md:gap-6 text-sm p-4">
             <ProductItem
               title="Leather Tote"
               href="/bags/leather-tote"
-              src="https://assets.aceternity.com/demos/algochurn.webp"
+              src="https://images.unsplash.com/photo-1584917865442-de89df76afd3"
               description="Premium leather tote for daily use"
             />
-             <ProductItem
-              title="Leather Tote"
-              href="/bags/leather-tote"
-              src="https://assets.aceternity.com/demos/algochurn.webp"
-              description="Premium leather tote for daily use"
+            <ProductItem
+              title="Handbag"
+              href="/bags/handbag"
+              src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f"
+              description="Elegant handbag for every occasion"
             />
             <ProductItem
               title="Travel Backpack"
               href="/bags/travel-backpack"
-              src="https://assets.aceternity.com/demos/tailwindmasterkit.webp"
+              src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c"
               description="Durable and stylish backpacks"
             />
           </div>
@@ -72,8 +75,9 @@ function Navbar({ className }: { className?: string }) {
             <HoveredLink href="/sale/accessories">Accessories Sale</HoveredLink>
           </div>
         </MenuItem>
+
         {/* All products */}
-      <MenuItem setActive={setActive} active={active} item="All Products">
+        <MenuItem setActive={setActive} active={active} item="All Products">
           <div className="flex flex-col space-y-4 text-sm">
             <HoveredLink href="/sale/men">Men’s Sale</HoveredLink>
             <HoveredLink href="/sale/women">Women’s Sale</HoveredLink>

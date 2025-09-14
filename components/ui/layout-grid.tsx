@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 
 type Card = {
   id: number;
-  content: JSX.Element | React.ReactNode | string;
+  content: React.ReactNode | string;
   className: string;
   thumbnail: string;
 };
@@ -69,6 +69,7 @@ const ImageComponent = ({ card }: { card: Card }) => {
         "object-cover object-top absolute inset-0 h-full w-full transition duration-200"
       )}
       alt="thumbnail"
+      
     />
   );
 };
