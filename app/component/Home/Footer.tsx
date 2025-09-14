@@ -20,7 +20,10 @@ export default function Footer() {
       await axios.post("/api/subscribe", { email }); // backend endpoint
       setStatus("Subscribed successfully! 🎉");
       setEmail("");
-    } catch (err) {
+    } catch (error) {
+      console.log('====================================');
+      console.log(error);
+      console.log('====================================');
       setStatus("Something went wrong. Try again.");
     }
   };

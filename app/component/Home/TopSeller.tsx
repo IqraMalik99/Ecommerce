@@ -1,24 +1,33 @@
 "use client";
 import { BentoGrid, BentoGridItem } from "../../../components/ui/bento-grid";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Heart } from "lucide-react";
 import { FaShoppingCart, FaCrown } from "react-icons/fa";
-import { motion } from "framer-motion"; // ✅ Animation
+import { motion } from "framer-motion";
 import Image from "next/image";
+
+// Define product type instead of using `any`
+type Product = {
+  img: string;
+  name: string;
+  price: string;
+  discount?: string;
+  topSeller?: boolean;
+  large?: boolean;
+};
 
 // Main Component
 export function TopSeller() {
-  const [pages, setPages] = useState(1);
-
-  const defaultItems = [
+  // pages state removed since it's unused (add back if needed)
+  const defaultItems: Product[] = [
     { img: "/images/jewel4.jpg", name: "Classic Jewelry", price: "45", discount: "20%", topSeller: true, large: true },
     { img: "/images/cloth1.jpg", name: "Running Sneakers", price: "89", discount: "15%", topSeller: false, large: false },
-    { img: "/images/men1.jpg", name: "Leather Jacket", price: "120", discount: "", topSeller: true, large: false },
+    { img: "/images/men1.jpg", name: "Leather Jacket", price: "120", topSeller: true, large: false },
     { img: "/images/men2.jpg", name: "Jacket", price: "199", discount: "10%", topSeller: false, large: false },
     { img: "/images/shoe1.jpg", name: "Running Sneakers", price: "60", discount: "5%", topSeller: false, large: false },
   ];
 
-  const handleCardClick = (item: any) => alert(`Clicked on ${item.name}`);
+  const handleCardClick = (item: Product) => alert(`Clicked on ${item.name}`);
 
   return (
     <>
@@ -52,7 +61,6 @@ export function TopSeller() {
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            onClick={() => setPages((prev) => prev + 1)}
             className="px-4 py-2 text-xs font-semibold tracking-wide 
                rounded-xl bg-white/10 dark:bg-gray-700/20 
                backdrop-blur-md border border-white/20 
@@ -77,14 +85,7 @@ const ProductCard = ({
   discount,
   topSeller,
   onClick,
-}: {
-  img: string;
-  name: string;
-  price: string;
-  discount?: string;
-  topSeller?: boolean;
-  onClick?: () => void;
-}) => {
+}: Product & { onClick?: () => void }) => {
   const [wishlisted, setWishlisted] = useState(false);
   const discountPercent = discount ? parseInt(discount.replace("%", "")) : 0;
   const finalPrice = discountPercent
@@ -102,7 +103,7 @@ const ProductCard = ({
     >
       {/* Image */}
       <div className="relative w-full h-32">
-        <Image src={img} alt={name} className="w-full h-full object-cover"  fill/>
+        <Image src={img} alt={name} className="w-full h-full object-cover" fill />
         {discount && (
           <span className="absolute top-1 left-1 bg-red-500/80 text-white text-xs font-semibold px-1 py-0.5 rounded">
             -{discount}
