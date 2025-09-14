@@ -33,12 +33,26 @@ export const InfiniteMovingCards = ({
     alert(`Added ${productId} to cart`);
   };
 
-  // ✅ useCallback so deps are stable
+  // ✅ memoize direction and speed setters
+  const getDirection = useCallback(() => {
+    if (!containerRef.current) return;
+    containerRef.current.style.setProperty(
+      "--animation-direction",
+      direction === "left" ? "forwards" : "reverse"
+    );
+  }, [direction]);
+
+  const getSpeed = useCallback(() => {
+    if (!containerRef.current) return;
+    const duration =
+      speed === "fast" ? "20s" : speed === "normal" ? "40s" : "80s";
+    containerRef.current.style.setProperty("--animation-duration", duration);
+  }, [speed]);
+
   const addAnimation = useCallback(() => {
     if (containerRef.current && scrollerRef.current) {
       const scrollerContent = Array.from(scrollerRef.current.children);
 
-      // duplicate children for infinite loop
       scrollerContent.forEach((item) => {
         const duplicatedItem = item.cloneNode(true);
         scrollerRef.current?.appendChild(duplicatedItem);
@@ -48,26 +62,11 @@ export const InfiniteMovingCards = ({
       getSpeed();
       setStart(true);
     }
-  }, [direction, speed]);
+  }, [getDirection, getSpeed]);
 
   useEffect(() => {
     addAnimation();
   }, [addAnimation]);
-
-  const getDirection = () => {
-    if (!containerRef.current) return;
-    containerRef.current.style.setProperty(
-      "--animation-direction",
-      direction === "left" ? "forwards" : "reverse"
-    );
-  };
-
-  const getSpeed = () => {
-    if (!containerRef.current) return;
-    const duration =
-      speed === "fast" ? "20s" : speed === "normal" ? "40s" : "80s";
-    containerRef.current.style.setProperty("--animation-duration", duration);
-  };
 
   return (
     <div
@@ -100,15 +99,15 @@ export const InfiniteMovingCards = ({
                          dark:bg-[linear-gradient(180deg,#27272a,#18181b)]"
             >
               <div className="flex flex-col items-center text-center">
-                {/* Product Image with Discount Tag */}
+                {/* Product Image */}
                 <div className="relative w-full h-[120px] mb-2">
                   <Image
-                    src={`${item.image}`}
+                    src={item.image}
                     alt={item.name}
-                    width={500}
-                    height={300}
+                    width={200}
+                    height={120}
                     unoptimized
-                    className="object-cover rounded-lg"
+                    className="object-cover w-full h-full rounded-lg"
                   />
                   {/* Discount Tag */}
                   <span className="absolute top-2 right-2 bg-red-600 text-white text-xs font-semibold px-2 py-1 rounded-md shadow-md backdrop-blur-sm bg-opacity-80">
@@ -134,7 +133,7 @@ export const InfiniteMovingCards = ({
                   </span>
                 </div>
 
-                {/* Glassy Add to Cart Button */}
+                {/* Add to Cart Button */}
                 <button
                   onClick={() => handleCartClick(item.id)}
                   className="mt-3 bg-gray-100/20 backdrop-blur-md border border-gray-300/40 
