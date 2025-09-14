@@ -1,7 +1,8 @@
 "use client";
+
 import { cn } from "@/lib/utils";
-import { motion, AnimatePresence, Variants } from "motion/react";
-import React, { useEffect, useState } from "react";
+import { motion, AnimatePresence, Variants } from "framer-motion"; // ✅ fixed import
+import React, { useEffect, useState, useCallback } from "react";
 
 export const ImagesSlider = ({
   images,
@@ -24,18 +25,20 @@ export const ImagesSlider = ({
   const [loading, setLoading] = useState(false);
   const [loadedImages, setLoadedImages] = useState<string[]>([]);
 
-  const handleNext = () => {
+  // ✅ wrapped in useCallback to fix ESLint + prevent re-renders
+  const handleNext = useCallback(() => {
     setCurrentIndex((prevIndex) =>
       prevIndex + 1 === images.length ? 0 : prevIndex + 1
     );
-  };
+  }, [images.length]);
 
-  const handlePrevious = () => {
+  const handlePrevious = useCallback(() => {
     setCurrentIndex((prevIndex) =>
       prevIndex - 1 < 0 ? images.length - 1 : prevIndex - 1
     );
-  };
+  }, [images.length]);
 
+  // Preload images
   useEffect(() => {
     const loadImages = () => {
       setLoading(true);
@@ -59,6 +62,7 @@ export const ImagesSlider = ({
     loadImages();
   }, [images]);
 
+  // Keyboard & autoplay
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "ArrowRight") handleNext();
@@ -80,6 +84,7 @@ export const ImagesSlider = ({
     };
   }, [autoplay, handleNext, handlePrevious]);
 
+  // Motion variants
   const slideVariants: Variants = {
     initial: {
       scale: 0,
@@ -92,7 +97,12 @@ export const ImagesSlider = ({
       opacity: 1,
       transition: {
         duration: 0.5,
-        ease: [0.645, 0.045, 0.355, 1.0] as [number, number, number, number],
+        ease: [0.645, 0.045, 0.355, 1.0] as [
+          number,
+          number,
+          number,
+          number
+        ],
       },
     },
     upExit: {

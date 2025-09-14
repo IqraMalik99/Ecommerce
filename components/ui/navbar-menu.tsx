@@ -2,6 +2,7 @@
 import React, { AnchorHTMLAttributes, ReactNode } from "react";
 import { motion, Transition } from "framer-motion";
 import Image from "next/image";
+
 // ✅ Correctly typed transition
 const transition: Transition = {
   type: "spring",
@@ -23,32 +24,34 @@ export const MenuItem = ({
   children?: React.ReactNode;
 }) => {
   return (
-    <div onMouseEnter={() => setActive(item)} className="relative">
+    <div
+      onMouseEnter={() => setActive(item)}
+      className="relative"
+      role="menuitem"
+    >
       <motion.p
         transition={{ duration: 0.3 }}
         className="cursor-pointer text-black hover:text-gray-600 dark:text-white"
       >
         {item}
       </motion.p>
-      {active !== null && (
+
+      {active === item && (
         <motion.div
           initial={{ opacity: 0, scale: 0.85, y: 10 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={transition} // ✅ just use like this
+          transition={transition}
+          className="absolute top-[calc(100%_+_1.2rem)] left-1/2 transform -translate-x-1/2 pt-4"
         >
-          {active === item && (
-            <div className="absolute top-[calc(100%_+_1.2rem)] left-1/2 transform -translate-x-1/2 pt-4">
-              <motion.div
-                transition={transition}
-                layoutId="active"
-                className="bg-white/90 backdrop-blur-md rounded-2xl overflow-hidden border border-black/20 dark:bg-black/80 dark:border-white/20 shadow-xl"
-              >
-                <motion.div layout className="w-max h-full p-4">
-                  {children}
-                </motion.div>
-              </motion.div>
-            </div>
-          )}
+          <motion.div
+            transition={transition}
+            layoutId="active"
+            className="bg-white/90 backdrop-blur-md rounded-2xl overflow-hidden border border-black/20 dark:bg-black/80 dark:border-white/20 shadow-xl"
+          >
+            <motion.div layout className="w-max h-full p-4">
+              {children}
+            </motion.div>
+          </motion.div>
         </motion.div>
       )}
     </div>
@@ -64,6 +67,7 @@ export const Menu = ({
 }) => {
   return (
     <nav
+      role="menu"
       onMouseLeave={() => setActive(null)}
       className="relative flex justify-center space-x-4 px-2 py-4 rounded-full bg-white/30 backdrop-blur-md border border-white/20 shadow-none"
     >
@@ -85,11 +89,10 @@ export const ProductItem = ({
 }) => {
   return (
     <a href={href} className="flex space-x-2">
-      {/* eslint-disable-next-line @next/next/no-img-element */}
       <Image
-       src={`${src}?w=180&h=120&fit=crop`}
+        src={`${src}?w=180&h=120&fit=crop`}
         width={180}
-        height={30}
+        height={120} // ✅ fixed height to match query
         alt={title}
         className="shrink-0 rounded-md shadow-lg"
         unoptimized
