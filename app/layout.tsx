@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${poppins.className}`}>
-      <body className={`antialiased bg-gray-50`}>
+      <body className={`antialiased bg-gray-50 overflow-x-hidden`}>
         {children}
       </body>
     </html>
