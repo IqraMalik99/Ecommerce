@@ -2,7 +2,7 @@
 
 import { IconArrowLeft, IconArrowRight } from "@tabler/icons-react";
 import { motion, AnimatePresence } from "motion/react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import Image from "next/image";
 
 type Testimonial = {
@@ -54,17 +54,20 @@ export const Testimonial = ({
 }) => {
   const [active, setActive] = useState(0);
 
-  const handleNext = () =>
+  // ✅ useCallback ensures handleNext and handlePrev are stable for useEffect
+  const handleNext = useCallback(() => {
     setActive((prev) => (prev + 1) % testimonials.length);
-  const handlePrev = () =>
+  }, [testimonials.length]);
+
+  const handlePrev = useCallback(() => {
     setActive((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+  }, [testimonials.length]);
 
   useEffect(() => {
-    if (autoplay) {
-      const interval = setInterval(handleNext, 5000);
-      return () => clearInterval(interval);
-    }
-  }, [autoplay]);
+    if (!autoplay) return;
+    const interval = setInterval(handleNext, 5000);
+    return () => clearInterval(interval);
+  }, [autoplay, handleNext]); // ✅ No ESLint warning
 
   const renderStars = (rating: number = 0) => (
     <div className="flex space-x-1 mt-1">
@@ -77,9 +80,7 @@ export const Testimonial = ({
   );
 
   if (!testimonials || testimonials.length === 0) {
-    return (
-      <p className="text-center text-gray-500">No testimonials available.</p>
-    );
+    return <p className="text-center text-gray-500">No testimonials available.</p>;
   }
 
   return (
@@ -87,12 +88,8 @@ export const Testimonial = ({
       <div className="max-w-5xl mx-auto px-4 lg:px-8">
         {/* Section Heading */}
         <div className="text-center mb-8">
-          <h2 className="text-3xl mt-2 font-bold text-black">
-            What Our Clients Say
-          </h2>
-          <p className="mt-2 text-gray-700 text-base">
-            Honest quotes from people who trust us
-          </p>
+          <h2 className="text-3xl mt-2 font-bold text-black">What Our Clients Say</h2>
+          <p className="mt-2 text-gray-700 text-base">Honest quotes from people who trust us</p>
         </div>
 
         {/* Testimonial Row */}
@@ -133,15 +130,13 @@ export const Testimonial = ({
               transition={{ duration: 0.3 }}
             >
               <h3 className="text-lg font-semibold">{testimonials[active].name}</h3>
-
               {renderStars(testimonials[active].rating)}
-
               <p className="mt-3 text-sm leading-relaxed line-clamp-3">
                 “{testimonials[active].quote}”
               </p>
             </motion.div>
 
-            {/* Buttons */}
+            {/* Navigation Buttons */}
             <div className="flex gap-3 pt-4">
               <button
                 onClick={handlePrev}
