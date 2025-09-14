@@ -6,7 +6,7 @@ const poppins = Poppins({
   weight: ["300", "400", "500", "600", "700"],
   subsets: ["latin"],
   display: "swap",
-  fallback: ["system-ui", "Arial", "sans-serif"], // fallback added
+  fallback: ["system-ui", "Arial", "sans-serif"],
 });
 
 export const metadata: Metadata = {
@@ -17,8 +17,20 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${poppins.className}`}>
-      <body className={`antialiased bg-gray-50 overflow-x-hidden`}>
-        {children}
+      <body
+        className={`
+          antialiased
+          bg-gray-50
+          w-screen
+          max-w-full
+          overflow-x-hidden
+          overscroll-x-none
+        `}
+      >
+        {/* Wrapper to catch any overflowing children */}
+        <div className="w-full max-w-full overflow-x-hidden">
+          {children}
+        </div>
       </body>
     </html>
   );
