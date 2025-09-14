@@ -40,7 +40,6 @@ export function AccordionDemo() {
   useEffect(() => {
     const fetchFAQs = async () => {
       try {
-        // Example API (replace with your endpoint)
         const res = await fetch("/api/faqs")
         if (res.ok) {
           const data: FAQ[] = await res.json()
@@ -55,18 +54,22 @@ export function AccordionDemo() {
   }, [])
 
   return (
-    <section className="max-w-full flex justify-center items-center flex-col mx-auto px-4 py-10 bg-gray-50 ">
+    <section className="flex justify-center items-center flex-col mx-auto px-4 py-10 bg-gray-50 w-full">
       <h2 className="text-2xl md:text-3xl font-bold text-center mb-8 text-gray-900 dark:text-white">
         Frequently Asked Questions
       </h2>
 
-      <Accordion type="single" collapsible className="w-3xl">
+      <Accordion
+        type="single"
+        collapsible
+        className="w-full max-w-md sm:max-w-xl md:max-w-3xl"
+      >
         {faqs.map((faq) => (
           <AccordionItem key={faq.id} value={`item-${faq.id}`}>
-            <AccordionTrigger className="text-base  font-medium text-gray-800 dark:text-gray-200">
+            <AccordionTrigger className="text-base font-medium text-gray-800 dark:text-gray-200">
               {faq.question}
             </AccordionTrigger>
-            <AccordionContent className="bg-gray-100  dark:bg-gray-800 rounded-md p-6 mt-2 text-sm text-gray-700 dark:text-gray-300">
+            <AccordionContent className="bg-gray-100 dark:bg-gray-800 rounded-md p-4 sm:p-6 mt-2 text-sm text-gray-700 dark:text-gray-300">
               {faq.answer}
             </AccordionContent>
           </AccordionItem>

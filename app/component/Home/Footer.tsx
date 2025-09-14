@@ -17,13 +17,11 @@ export default function Footer() {
   const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await axios.post("/api/subscribe", { email }); // backend endpoint
+      await axios.post("/api/subscribe", { email });
       setStatus("Subscribed successfully! 🎉");
       setEmail("");
     } catch (error) {
-      console.log('====================================');
       console.log(error);
-      console.log('====================================');
       setStatus("Something went wrong. Try again.");
     }
   };
@@ -34,16 +32,15 @@ export default function Footer() {
       whileInView="visible"
       viewport={{ once: true }}
       transition={{ staggerChildren: 0.15 }}
-      className="relative bg-white/10 dark:bg-black/20 backdrop-blur-lg border-t border-white/20 shadow-xl mt-12"
+      className="relative bg-white/10 dark:bg-black/20 backdrop-blur-lg border-t border-white/20 shadow-xl mt-12 overflow-hidden"
     >
-      <div className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-4 gap-8">
-        
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-8 md:py-12 grid grid-cols-1 md:grid-cols-4 gap-6 md:gap-8">
         {/* Brand */}
         <motion.div variants={fadeUp}>
           <h2 className="text-2xl font-bold text-olive-600 dark:text-olive-400">
             ShopSphere
           </h2>
-          <p className="mt-3 text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
+          <p className="mt-2 md:mt-3 text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
             Your classy destination for fashion, lifestyle, and more.
           </p>
         </motion.div>
@@ -53,7 +50,7 @@ export default function Footer() {
           <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
             Categories
           </h3>
-          <ul className="mt-3 space-y-2 text-gray-600 dark:text-gray-400 text-sm">
+          <ul className="mt-2 md:mt-3 space-y-2 text-gray-600 dark:text-gray-400 text-sm">
             {["Clothing", "Jewelry", "Electronics", "Accessories"].map((item) => (
               <li key={item}>
                 <a
@@ -72,7 +69,7 @@ export default function Footer() {
           <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
             Customer Support
           </h3>
-          <ul className="mt-3 space-y-2 text-gray-600 dark:text-gray-400 text-sm">
+          <ul className="mt-2 md:mt-3 space-y-2 text-gray-600 dark:text-gray-400 text-sm">
             {["Track Order", "Shipping Info", "Returns & Refunds", "FAQ"].map(
               (link) => (
                 <li key={link}>
@@ -93,22 +90,21 @@ export default function Footer() {
           <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
             Stay Updated
           </h3>
-          <p className="mt-2 text-gray-600 dark:text-gray-400 text-sm">
+          <p className="mt-1 md:mt-2 text-gray-600 dark:text-gray-400 text-sm">
             Subscribe for deals & new arrivals.
           </p>
-          <form onSubmit={handleSubscribe} className="mt-4 flex">
+          <form onSubmit={handleSubscribe} className="mt-2 flex flex-col sm:flex-row gap-2 sm:gap-0">
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your email"
-              className="w-full px-3 py-2 rounded-l-lg bg-white/20 text-gray-800 
-                        dark:text-gray-200 focus:outline-none placeholder-gray-400"
+              className="w-full px-3 py-2 rounded-lg sm:rounded-l-lg bg-white/20 text-gray-800 dark:text-gray-200 focus:outline-none placeholder-gray-400"
               required
             />
             <button
               type="submit"
-              className="px-4 py-2 bg-olive-600 text-white rounded-r-lg hover:bg-olive-700 transition"
+              className="px-4 py-2 bg-olive-600 text-white rounded-lg sm:rounded-r-lg hover:bg-olive-700 transition"
             >
               Subscribe
             </button>
@@ -117,32 +113,12 @@ export default function Footer() {
             <p className="mt-2 text-xs text-gray-600 dark:text-gray-400">{status}</p>
           )}
 
-          {/* Social Icons with brand colors */}
-          <div className="flex space-x-4 mt-4">
-            <a
-              href="#"
-              className="text-gray-600 hover:text-[#1877F2] dark:text-gray-400 transition-colors"
-            >
-              <FaFacebook size={20} />
-            </a>
-            <a
-              href="#"
-              className="text-gray-600 hover:text-[#E1306C] dark:text-gray-400 transition-colors"
-            >
-              <FaInstagram size={20} />
-            </a>
-            <a
-              href="#"
-              className="text-gray-600 hover:text-[#1DA1F2] dark:text-gray-400 transition-colors"
-            >
-              <FaTwitter size={20} />
-            </a>
-            <a
-              href="#"
-              className="text-gray-600 hover:text-[#181717] dark:text-gray-400 transition-colors"
-            >
-              <FaGithub size={20} />
-            </a>
+          {/* Social Icons */}
+          <div className="flex flex-wrap gap-4 mt-4">
+            <FaFacebook size={20} className="text-gray-600 hover:text-[#1877F2] dark:text-gray-400 transition-colors" />
+            <FaInstagram size={20} className="text-gray-600 hover:text-[#E1306C] dark:text-gray-400 transition-colors" />
+            <FaTwitter size={20} className="text-gray-600 hover:text-[#1DA1F2] dark:text-gray-400 transition-colors" />
+            <FaGithub size={20} className="text-gray-600 hover:text-[#181717] dark:text-gray-400 transition-colors" />
           </div>
         </motion.div>
       </div>
@@ -150,7 +126,7 @@ export default function Footer() {
       {/* Bottom Bar */}
       <motion.div
         variants={fadeUp}
-        className="border-t border-white/20 mt-6 py-4 text-center text-xs text-gray-500 dark:text-gray-400"
+        className="border-t border-white/20 mt-4 md:mt-6 py-4 text-center text-xs text-gray-500 dark:text-gray-400"
       >
         © {new Date().getFullYear()} ShopSphere. All rights reserved.
       </motion.div>

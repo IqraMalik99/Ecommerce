@@ -16,7 +16,7 @@ export function HeroBanner() {
 
   return (
     <>
-      <div className="relative h-[33rem] w-full overflow-hidden bg-gray-50">
+      <div className="relative h-[33rem] overflow-y-hidden w-full overflow-hidden bg-gray-50">
         {/* Background slider */}
         <ImagesSlider className="h-full w-full" images={images} />
 
@@ -58,7 +58,7 @@ export function HeroBanner() {
         </div>
       </div>
    <div
-  className="flex justify-between items-start w-full 
+  className="flex justify-between items-start w-full h-auto
              bg-gray-50 dark:bg-black/60 py-2 px-3 
              text-[10px] sm:text-sm md:text-base mt-2 cursor-pointer 
              gap-4 sm:gap-8"
