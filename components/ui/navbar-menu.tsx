@@ -47,7 +47,7 @@ export const MenuItem = ({
             layoutId="active"
             className="bg-white/90 backdrop-blur-md rounded-xl overflow-hidden border border-black/10 dark:bg-black/80 dark:border-white/10 shadow-md"
           >
-            <motion.div layout className="w-[50vw]  max-w-4xl  h-full p-2">
+            <motion.div layout className="w-[60vw]  max-w-4xl  h-full p-2">
               {children}
             </motion.div>
           </motion.div>

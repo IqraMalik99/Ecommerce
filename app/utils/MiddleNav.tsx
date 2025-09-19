@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 
 export function NavbarDemo() {
   return (
-    <div className="relative w-[80vw] md:w-[40vw] flex items-center justify-center mb-10">
+    <div className="relative w-[90vw] md:w-[40vw] flex items-center justify-center mb-10">
       <Navbar className="" />
     </div>
   );

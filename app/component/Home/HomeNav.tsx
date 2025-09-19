@@ -57,7 +57,7 @@ function HomeNav() {
       </div>
 
       {/* ✅ Mobile / tablet */}
-      <div className="flex md:hidden items-center justify-between px-4 py-3">
+      <div className="flex md:hidden items-center justify-between px-2 pt-5">
         {/* Logo */}
 
         <NavbarDemo />
