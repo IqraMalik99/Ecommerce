@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { NavbarDemo } from "../../utils/MiddleNav";
 import { Heart, ShoppingCart, User, Search } from "lucide-react";
-import { SidebarDemo } from "../../utils/SidebarDemo"; // import your sidebar
+import { SidebarDemo } from "../../utils/SidebarDemo";
 
 function HomeNav() {
   const [query, setQuery] = useState("");
@@ -21,42 +21,48 @@ function HomeNav() {
   };
 
   return (
-    <div className="w-screen">
-      {/* Desktop / large screens */}
-      <div className="hidden md:block">
-        <div className="flex justify-between items-center h-10 px-6">
-          <h1 className="text-2xl font-bold">Logo</h1>
-          <div className="flex items-center space-x-6">
-            <Heart className="w-6 h-6 cursor-pointer hover:text-pink-500" />
-            <ShoppingCart className="w-6 h-6 cursor-pointer hover:text-[#658b17]" />
-            <User className="w-6 h-6 cursor-pointer hover:text-gray-600" />
-          </div>
-        </div>
- <div className="flex   justify-center ">
-          <NavbarDemo />
-        </div>
-        {/* Search */}
-        <div className="relative flex justify-start py-4 ml-6 mt-12">
+    <div className="w-screen bg-gray-50/25 h-[12vh]">
+      {/* ✅ Desktop / large screens */}
+      <div className="hidden md:flex items-center justify-between px-6 pt-5">
+        {/* Logo */}
+        <h1 className="text-2xl font-bold whitespace-nowrap">Logo</h1>
+
+        {/* Search (smaller width) */}
+        <div className="relative w-[30vw] mb-3">
           <Search
-            className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 cursor-pointer"
+            className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-black cursor-pointer"
             onClick={handleSearch}
           />
           <input
             type="text"
-            placeholder="Search products..."
+            placeholder="Search..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             onKeyPress={handleKeyPress}
-            className="w-full max-w-lg pl-10 pr-4 py-2 border rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-300"
+            className="w-full pl-10 pr-4 py-1.5 border rounded-full shadow-sm text-sm focus:outline-none focus:ring-2 focus:ring-gray-300"
           />
         </div>
 
-      
+        {/* NavbarDemo */}
+        <div className="flex-shrink-0">
+          <NavbarDemo />
+        </div>
+
+        {/* Icons */}
+        <div className="flex items-center space-x-4">
+          <Heart className="w-5 h-5 cursor-pointer hover:text-pink-500" />
+          <ShoppingCart className="w-5 h-5 cursor-pointer hover:text-[#658b17]" />
+          <User className="w-5 h-5 cursor-pointer hover:text-gray-600" />
+        </div>
       </div>
-  
-      {/* Tablet / mobile screens: show sidebar */} 
-      <div className="block md:hidden">
-        <SidebarDemo/>
+
+      {/* ✅ Mobile / tablet */}
+      <div className="flex md:hidden items-center justify-between px-4 py-3">
+        {/* Logo */}
+
+        <NavbarDemo />
+        {/* Hamburger */}
+        <SidebarDemo />
       </div>
     </div>
   );

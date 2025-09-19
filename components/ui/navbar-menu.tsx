@@ -3,7 +3,6 @@ import React, { AnchorHTMLAttributes, ReactNode } from "react";
 import { motion, Transition } from "framer-motion";
 import Image from "next/image";
 
-// ✅ Correctly typed transition
 const transition: Transition = {
   type: "spring",
   mass: 0.5,
@@ -31,7 +30,7 @@ export const MenuItem = ({
     >
       <motion.p
         transition={{ duration: 0.3 }}
-        className="cursor-pointer text-black hover:text-gray-600 dark:text-white"
+        className="cursor-pointer text-xs font-medium text-black hover:text-gray-600 dark:text-white"
       >
         {item}
       </motion.p>
@@ -41,14 +40,14 @@ export const MenuItem = ({
           initial={{ opacity: 0, scale: 0.85, y: 10 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={transition}
-          className="absolute top-[calc(100%_+_1.2rem)] left-1/2 transform -translate-x-1/2 pt-4"
+          className="absolute top-[calc(100%+0.8rem)] left-1/2 transform -translate-x-1/2 pt-2"
         >
           <motion.div
             transition={transition}
             layoutId="active"
-            className="bg-white/90 backdrop-blur-md rounded-2xl overflow-hidden border border-black/20 dark:bg-black/80 dark:border-white/20 shadow-xl"
+            className="bg-white/90 backdrop-blur-md rounded-xl overflow-hidden border border-black/10 dark:bg-black/80 dark:border-white/10 shadow-md"
           >
-            <motion.div layout className="w-max h-full p-4">
+            <motion.div layout className="w-[40vw]  max-w-4xl  h-full p-2">
               {children}
             </motion.div>
           </motion.div>
@@ -69,7 +68,7 @@ export const Menu = ({
     <nav
       role="menu"
       onMouseLeave={() => setActive(null)}
-      className="relative flex justify-center space-x-4 px-2 py-4 rounded-full bg-white/30 backdrop-blur-md border border-white/20 shadow-none"
+      className="relative flex justify-center space-x-3 px-2 py-2 rounded-full bg-white/30 backdrop-blur-md border border-white/10 shadow-none"
     >
       {children}
     </nav>
@@ -82,34 +81,37 @@ export const ProductItem = ({
   href,
   src,
 }: {
-  title: string;
-  description: string;
-  href: string;
-  src: string;
+  title: string
+  description: string
+  href: string
+  src: string
 }) => {
   return (
-    <a href={href} className="flex space-x-2">
+    <a
+      href={href}
+      className="flex items-center gap-3 p-2 hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded-md transition"
+    >
       <Image
-        src={`${src}?w=180&h=120&fit=crop`}
-        width={180}
-        height={120} // ✅ fixed height to match query
+        src={src}
+        width={64}
+        height={64}
         alt={title}
-        className="shrink-0 rounded-md shadow-lg"
+        className="w-16 h-16 object-cover rounded-md"
         unoptimized
       />
-      <div>
-        <h4 className="text-xl font-bold mb-1 text-black dark:text-white">
+      <div className="flex flex-col">
+        <h4 className="text-sm font-medium text-black dark:text-white">
           {title}
         </h4>
-        <p className="text-neutral-700 text-sm max-w-[10rem] dark:text-neutral-300">
+        <p className="text-xs text-neutral-600 dark:text-neutral-300 line-clamp-1">
           {description}
         </p>
       </div>
     </a>
-  );
-};
+  )
+}
 
-// ✅ No `any` left
+
 export const HoveredLink = ({
   children,
   ...rest
@@ -117,9 +119,10 @@ export const HoveredLink = ({
   return (
     <a
       {...rest}
-      className="text-neutral-700 dark:text-neutral-200 hover:text-gray-600"
+      className="inline-flex w-fit  text-neutral-700 dark:text-neutral-200 hover:text-gray-600 text-xs"
     >
       {children}
     </a>
   );
 };
+
