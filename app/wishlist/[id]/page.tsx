@@ -4,6 +4,8 @@ import React, { use, useEffect, useState } from 'react'
 import { STATUS } from '@/app/models/productSchema'
 import { FaTrash } from 'react-icons/fa'
 import Image from 'next/image'
+import axios from 'axios'
+import { log } from 'console'
 
 type Review = {
   username: string
@@ -28,13 +30,45 @@ type Product = {
 
 function Page({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params)
-  const [wishlist, setWishlist] = useState<Product[]>([])
 
-  // ✅ Commented out fetching (you’ll enable later with API)
-  // const fetchWishlist = async (id: string) => {
-  //   const res = await axios.get(`${baseUrl}/api/user/wishlist/${id}`)
-  //   setWishlist(res.data)
-  // }
+  // ✅ Default mock wishlist
+  const [wishlist, setWishlist] = useState<Product[]>([
+    {
+      _id: '1',
+      title: 'Wireless Headphones',
+      description: 'Noise-cancelling over-ear headphones with deep bass',
+      price: 120,
+      discount: 20,
+      stock: 10,
+      status: 'active' as STATUS,
+      image: [
+        'https://via.placeholder.com/300x200.png?text=Headphones',
+      ],
+    },
+    {
+      _id: '2',
+      title: 'Smart Watch',
+      description: 'Track your health and fitness goals with style',
+      price: 80,
+      discount: 10,
+      stock: 15,
+      status: 'active' as STATUS,
+      image: [
+        'https://via.placeholder.com/300x200.png?text=Smart+Watch',
+      ],
+    },
+    {
+      _id: '3',
+      title: 'Gaming Mouse',
+      description: 'High precision RGB gaming mouse with 7 buttons',
+      price: 40,
+      stock: 20,
+      status: 'active' as STATUS,
+      image: [
+        'https://via.placeholder.com/300x200.png?text=Gaming+Mouse',
+      ],
+    },
+  ])
 
   const handleDelete = (productId: string) => {
     setWishlist((prev) => prev.filter((item) => item._id !== productId))
@@ -43,11 +77,14 @@ function Page({ params }: { params: Promise<{ id: string }> }) {
   const handleAddToCart = (productId: string) => {
     console.log(`Add to cart: ${productId}`)
   }
-
+  // let fetcherList=async(id:string)=>{
+  //       let list = await axios.get(`http://localhost:3000/api/user/wishlist/${id}`);
+  //       console.log(list.data);
+  //       setWishlist(list.data);          //Check data here
+  // }
   // useEffect(() => {
-  //   fetchWishlist(id)
-  // }, [id])
-
+  //   fetcherList(id);
+  // },[])
   return (
     <>
       <HomeNav />
@@ -66,10 +103,10 @@ function Page({ params }: { params: Promise<{ id: string }> }) {
             return (
               <div
                 key={item._id}
-                className="relative w-64 bg-white border border-gray-200 
-                rounded-xl shadow-sm p-4 mx-auto transition hover:shadow-lg hover:scale-[1.02]"
+                className="relative w-64 bg-white/70 backdrop-blur-lg border border-gray-200 
+                rounded-xl shadow-md p-4 mx-auto transition hover:shadow-lg hover:scale-[1.02]"
               >
-                {/* Image wrapper */}
+                {/* Image */}
                 <div className="relative w-full h-36 mb-3">
                   <Image
                     src={item.image[0]}
@@ -109,15 +146,15 @@ function Page({ params }: { params: Promise<{ id: string }> }) {
                 <div className="flex justify-between items-center mt-4">
                   <button
                     onClick={() => handleDelete(item._id)}
-                    className="flex items-center gap-1 bg-gray-100 text-gray-800 px-2 py-1 
-                    rounded-full text-xs shadow hover:bg-gray-200"
+                    className="flex items-center gap-1 bg-gray-200 text-gray-700 px-2 py-1 
+                    rounded-full text-xs shadow"
                   >
                     <FaTrash size={12} /> Delete
                   </button>
 
                   <button
                     onClick={() => handleAddToCart(item._id)}
-                    className="bg-black text-white px-3 py-1 rounded-full text-xs shadow hover:bg-gray-800"
+                    className="bg-black text-white px-3 py-1 rounded-full text-xs shadow"
                   >
                     Add
                   </button>
