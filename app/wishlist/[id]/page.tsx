@@ -40,9 +40,9 @@ function Page({ params }: { params: Promise<{ id: string }> }) {
       price: 120,
       discount: 20,
       stock: 10,
-      status: 'active' as STATUS,
+      status: STATUS.IN_STOCK,
       image: [
-        'https://via.placeholder.com/300x200.png?text=Headphones',
+        'https://images.unsplash.com/photo-1511739001486-6bfe10ce785f?w=500&auto=format&fit=crop&q=80',
       ],
     },
     {
@@ -52,9 +52,9 @@ function Page({ params }: { params: Promise<{ id: string }> }) {
       price: 80,
       discount: 10,
       stock: 15,
-      status: 'active' as STATUS,
+      status: STATUS.IN_STOCK,
       image: [
-        'https://via.placeholder.com/300x200.png?text=Smart+Watch',
+        'https://images.unsplash.com/photo-1511739001486-6bfe10ce785f?w=500&auto=format&fit=crop&q=80',
       ],
     },
     {
@@ -63,12 +63,13 @@ function Page({ params }: { params: Promise<{ id: string }> }) {
       description: 'High precision RGB gaming mouse with 7 buttons',
       price: 40,
       stock: 20,
-      status: 'active' as STATUS,
+      status: STATUS.IN_STOCK,
       image: [
-        'https://via.placeholder.com/300x200.png?text=Gaming+Mouse',
+        'https://images.unsplash.com/photo-1511739001486-6bfe10ce785f?w=500&auto=format&fit=crop&q=80',
       ],
     },
   ])
+
 
   const handleDelete = (productId: string) => {
     setWishlist((prev) => prev.filter((item) => item._id !== productId))
@@ -112,9 +113,13 @@ function Page({ params }: { params: Promise<{ id: string }> }) {
                     src={item.image[0]}
                     alt={item.title}
                     fill
+                    sizes="(max-width: 768px) 100vw, 
+           (max-width: 1200px) 50vw, 
+           300px"
                     className="object-cover rounded-lg"
                   />
                 </div>
+
 
                 <h3 className="text-base font-semibold text-gray-900">
                   {item.title}
