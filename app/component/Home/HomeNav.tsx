@@ -3,10 +3,15 @@ import React, { useState } from "react";
 import { NavbarDemo } from "../../utils/MiddleNav";
 import { Heart, ShoppingCart, User, Search } from "lucide-react";
 import { SidebarDemo } from "../../utils/SidebarDemo";
+import { useRouter } from "next/navigation";
 
-function HomeNav() {
+type Props = {
+  bg?: string;
+};
+function HomeNav({ bg = "bg-gray-50/25" }: Props) {
+
   const [query, setQuery] = useState("");
-
+  const router = useRouter();
   const handleSearch = () => {
     if (query.trim() !== "") {
       console.log("Searching for:", query);
@@ -21,11 +26,11 @@ function HomeNav() {
   };
 
   return (
-    <div className="w-screen bg-gray-50/25 h-[12vh]">
+    <div className={`${bg} w-screen  h-[12vh]`}>
       {/* ✅ Desktop / large screens */}
       <div className="hidden md:flex items-center justify-between px-6 pt-5">
         {/* Logo */}
-        <h1 className="text-2xl font-bold whitespace-nowrap">Logo</h1>
+        <h1 className="text-2xl font-bold whitespace-nowrap cursor-pointer" onClick={() => router.push('/')}>Logo</h1>
 
         {/* Search (smaller width) */}
         <div className="relative w-[30vw] mb-3">
@@ -50,8 +55,8 @@ function HomeNav() {
 
         {/* Icons */}
         <div className="flex items-center space-x-4">
-          <Heart className="w-5 h-5 cursor-pointer hover:text-pink-500" />
-          <ShoppingCart className="w-5 h-5 cursor-pointer hover:text-[#658b17]" />
+          <Heart className="w-5 h-5 cursor-pointer hover:text-pink-500" onClick={()=> router.push('/wishlist/112')}/>
+          <ShoppingCart className="w-5 h-5 cursor-pointer hover:text-[#658b17]"  onClick={()=> router.push('/cart')} />
           <User className="w-5 h-5 cursor-pointer hover:text-gray-600" />
         </div>
       </div>

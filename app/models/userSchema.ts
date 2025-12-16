@@ -46,6 +46,8 @@ const userSchema = new Schema<UIDocument>({
       {
         productId: { type: Schema.Types.ObjectId, ref: "Product" },
         quantity: { type: Number, default: 1 },
+        size: { type: String },
+        color: { type: String },
       },
     ],
 

@@ -6,6 +6,8 @@ import { FaTrash } from 'react-icons/fa'
 import Image from 'next/image'
 import axios from 'axios'
 import { log } from 'console'
+import { routerServerGlobal } from 'next/dist/server/lib/router-utils/router-server-context'
+import { useRouter } from 'next/navigation'
 
 type Review = {
   username: string
@@ -30,7 +32,7 @@ type Product = {
 
 function Page({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params)
-
+  const router = useRouter();
   // ✅ Default mock wishlist
   const [wishlist, setWishlist] = useState<Product[]>([
     {
@@ -70,7 +72,9 @@ function Page({ params }: { params: Promise<{ id: string }> }) {
     },
   ])
 
-
+const productpage= async(id:string)=>{
+         router.push(`/products/${id}`)
+}
   const handleDelete = (productId: string) => {
     setWishlist((prev) => prev.filter((item) => item._id !== productId))
   }
@@ -87,89 +91,95 @@ function Page({ params }: { params: Promise<{ id: string }> }) {
   //   fetcherList(id);
   // },[])
   return (
-    <>
-      <HomeNav />
-      <div className="p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 bg-gray-50 mx-auto">
-        {wishlist.length === 0 ? (
-          <p className="text-center col-span-full text-gray-500">
-            No items in your wishlist
-          </p>
-        ) : (
-          wishlist.map((item) => {
-            const discountedPrice =
-              item.discount && item.discount > 0
-                ? item.price - (item.price * item.discount) / 100
-                : null
+ <>
+  <HomeNav bg={"bg-gray-100/50"}/>
+  <div className="relative">
+    {/* Blurry top border */}
+    <div className="absolute top-0 left-0 w-full h-[2px] bg-gray-300/40 backdrop-blur-md" />
 
-            return (
-              <div
-                key={item._id}
-                className="relative w-64 bg-white/70 backdrop-blur-lg border border-gray-200 
-                rounded-xl shadow-md p-4 mx-auto transition hover:shadow-lg hover:scale-[1.02]"
-              >
-                {/* Image */}
-                <div className="relative w-full h-36 mb-3">
-                  <Image
-                    src={item.image[0]}
-                    alt={item.title}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 
-           (max-width: 1200px) 50vw, 
-           300px"
-                    className="object-cover rounded-lg"
-                  />
-                </div>
+    <div className="p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 bg-gray-50 mx-auto">
+      {wishlist.length === 0 ? (
+        <p className="text-center col-span-full text-gray-500">
+          No items in your wishlist
+        </p>
+      ) : (
+        wishlist.map((item) => {
+          const discountedPrice =
+            item.discount && item.discount > 0
+              ? item.price - (item.price * item.discount) / 100
+              : null
 
+          return (
+            <div
+              key={item._id}
+              className="relative w-64 bg-white/70 backdrop-blur-lg border border-gray-200 
+              rounded-xl shadow-md p-4 mx-auto transition hover:shadow-lg hover:scale-[1.02]"
+              onClick={()=> productpage(item._id)}
+            >
+              {/* Image */}
+              <div className="relative w-full h-36 mb-3">
+                <Image
+                  src={item.image[0]}
+                  alt={item.title}
+                  fill
+                  sizes="(max-width: 768px) 100vw,
+                         (max-width: 1200px) 50vw,
+                         300px"
+                  className="object-cover rounded-lg"
+                />
+              </div>
 
-                <h3 className="text-base font-semibold text-gray-900">
-                  {item.title}
-                </h3>
-                <p className="text-xs text-gray-600 line-clamp-2">
-                  {item.description}
-                </p>
+              <h3 className="text-base font-semibold text-gray-900">
+                {item.title}
+              </h3>
+              <p className="text-xs text-gray-600 line-clamp-2">
+                {item.description}
+              </p>
 
-                {/* Price */}
-                {discountedPrice ? (
-                  <div className="mt-2">
-                    <p className="text-xs text-gray-400 line-through">
-                      ${item.price}
-                    </p>
-                    <p className="text-sm font-bold text-black">
-                      ${discountedPrice.toFixed(2)}
-                      <span className="text-red-500 text-xs ml-1">
-                        ({item.discount}% off)
-                      </span>
-                    </p>
-                  </div>
-                ) : (
-                  <p className="text-sm font-bold text-black mt-2">
+              {/* Price */}
+              {discountedPrice ? (
+                <div className="mt-2">
+                  <p className="text-xs text-gray-400 line-through">
                     ${item.price}
                   </p>
-                )}
-
-                {/* Actions */}
-                <div className="flex justify-between items-center mt-4">
-                  <button
-                    onClick={() => handleDelete(item._id)}
-                    className="flex items-center gap-1 bg-gray-200 text-gray-700 px-2 py-1 
-                    rounded-full text-xs shadow"
-                  >
-                    <FaTrash size={12} /> Delete
-                  </button>
-
-                  <button
-                    onClick={() => handleAddToCart(item._id)}
-                    className="bg-black text-white px-3 py-1 rounded-full text-xs shadow"
-                  >
-                    Add
-                  </button>
+                  <p className="text-sm font-bold text-black">
+                    ${discountedPrice.toFixed(2)}
+                    <span className="text-red-500 text-xs ml-1">
+                      ({item.discount}% off)
+                    </span>
+                  </p>
                 </div>
+              ) : (
+                <p className="text-sm font-bold text-black mt-2">
+                  ${item.price}
+                </p>
+              )}
+
+              {/* Actions */}
+              <div className="flex justify-between items-center mt-4">
+                <button
+                  onClick={() => handleDelete(item._id)}
+                  className="flex items-center gap-1 bg-gray-200 text-gray-700 px-2 py-1 
+                  rounded-full text-xs shadow"
+                >
+                  <FaTrash size={12} /> Delete
+                </button>
+
+                <button
+                  onClick={()=> productpage(item._id)}
+                  className="bg-black text-white px-3 py-1 rounded-full text-xs shadow"
+                >
+                  Add
+                </button>
               </div>
-            )
-          })
-        )}
-      </div>
-    </>
+            </div>
+          )
+        })
+      )}
+    </div>
+  </div>
+</>
+
   )
 }
 

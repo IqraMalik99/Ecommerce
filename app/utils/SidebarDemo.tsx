@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 import {
   Menu,
   X,
@@ -11,10 +12,12 @@ import {
   Search,
 } from "lucide-react";
 
+
 export function SidebarDemo() {
+
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
-
+  const router=useRouter();
   const handleSearch = () => {
     if (query.trim() !== "") {
       console.log("Searching for:", query);
@@ -80,7 +83,7 @@ export function SidebarDemo() {
         {/* Links */}
         <nav className="flex flex-col space-y-5">
           <SidebarLink icon={<Home className="h-6 w-6" />} label="Home" href="#" />
-          <SidebarLink icon={<Heart className="h-6 w-6" />} label="Wishlist" href="#" hoverColor="hover:text-pink-300" />
+          <SidebarLink icon={<Heart className="h-6 w-6" onClick={()=>router.push('/wishlist/112')}/>} label="Wishlist" href="#" hoverColor="hover:text-pink-300" />
           <SidebarLink icon={<ShoppingCart className="h-6 w-6" />} label="Cart" href="#" hoverColor="hover:text-[#8FBC8F]" />
           <SidebarLink icon={<User className="h-6 w-6" />} label="Profile" href="#" hoverColor="hover:text-gray-800" />
         </nav>

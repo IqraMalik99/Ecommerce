@@ -13,7 +13,7 @@ export enum STATUS {
 //   image: string[];
 //   size?: string[];
 //   color?: string[];
-//   discount?: number;
+//   discount?: number;a
 //   stock: number;
 //   status: STATUS;
 // }
