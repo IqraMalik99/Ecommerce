@@ -2,7 +2,7 @@
 
 import React, { useRef, useState } from "react";
 import { Camera, Trash2 } from "lucide-react";
-
+import Image from "next/image";
 export default function ProfilePage() {
   const [isEditing, setIsEditing] = useState(false);
 
@@ -52,7 +52,7 @@ export default function ProfilePage() {
           
           {/* Avatar */}
           <div className="relative group">
-            <img
+            <Image
               src={profile.avatar}
               alt="Profile avatar"
               className="w-[150px] h-[150px] rounded-full border-4 border-white shadow-lg object-cover ring-2 ring-gray-300 group-hover:ring-gray-500 transition"

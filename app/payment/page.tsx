@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import HomeNav from "../component/Home/HomeNav";
-
+import Image from "next/image";
 type CartItem = {
   id: string;
   name: string;
@@ -26,7 +26,7 @@ const shippingOptions: ShippingOption[] = [
   { id: "overnight", name: "Overnight (1 day)", price: 20 },
 ];
 
-export default function CheckoutPage() {
+export default function Page() {
   const [cartItems, setCartItems] = useState<CartItem[]>([
     {
       id: "1",
@@ -113,7 +113,7 @@ export default function CheckoutPage() {
                 className="flex items-center justify-between bg-white/50 backdrop-blur-md rounded-2xl p-2 shadow-sm"
               >
                 <div className="flex items-center space-x-2">
-                  <img
+                  <Image
                     src={item.image}
                     alt={item.name}
                     className="w-10 h-10 rounded-lg object-cover"

@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import HomeNav from "../component/Home/HomeNav";
 import axios from "axios";
 
-export default function SignupCard() {
+export default function Page() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

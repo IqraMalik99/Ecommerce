@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { X, Plus, Minus } from "lucide-react";
 import HomeNav from "../component/Home/HomeNav";
 import { useRouter } from "next/navigation";
-
+import Image from "next/image";
 type CartItem = {
   id: string;
   name: string;
@@ -88,7 +88,7 @@ export default function CartPage() {
                              backdrop-blur-xl shadow-lg border border-white/30 
                              hover:scale-[1.02] transition-transform duration-200"
                 >
-                  <img
+                  <Image
                     src={item.image}
                     alt={item.name}
                     className="w-20 h-20 rounded-xl object-cover shadow-md"
