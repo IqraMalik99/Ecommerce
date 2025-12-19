@@ -1,71 +1,75 @@
-"use client"
+"use client";
 import React from "react";
 import Image from "next/image";
-
+import { useRouter } from "next/navigation";
 export const Categories = () => {
+  const router = useRouter();
   const handleSearch = (data: string) => {
+    router.push(`/${data}`)
     console.log(data);
   };
 
   return (
-    <div className="min-h-[80vh] flex items-center justify-center p-4 bg-gray-50">
+    <div className="min-h-[80vh] flex items-center justify-center p-4 bg-[rgb(249 243 237)]">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-4xl">
         
-        {/* Left column: Women */}
+        {/* Left column: Makeup */}
         <div
           className="relative rounded-xl overflow-hidden cursor-pointer transition-all duration-300 hover:shadow-xl 
                      h-[55vh] sm:h-[65vh] md:h-[80vh] min-h-[280px]"
-          onClick={() => handleSearch("women")}
+          onClick={() => handleSearch("makeup")}
         >
           <Image
-            src="/images/cloth2.jpg"
-            alt="Women"
+            src="/images/makeup.jpg"
+            alt="Makeup"
             className="w-full h-full object-cover"
             fill
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
           <div className="absolute bottom-6 left-6 text-white">
-            <h3 className="text-2xl font-bold">Women</h3>
+            <h3 className="text-2xl font-bold">Makeup</h3>
             <p className="mt-1 opacity-0 transition-opacity duration-300 hover:opacity-100">
               Explore collection
             </p>
           </div>
         </div>
 
-        {/* Right column: Men + Jewelry */}
+        {/* Right column: Skin Care + Electronics */}
         <div className="flex flex-col gap-6 h-[55vh] sm:h-[65vh] md:h-[80vh] min-h-[280px]">
+          {/* Skin Care */}
           <div
             className="relative rounded-xl overflow-hidden cursor-pointer transition-all duration-300 hover:shadow-xl flex-1"
-            onClick={() => handleSearch("men")}
+            onClick={() => handleSearch("skincare")}
           >
             <Image
-              src="/images/men1.jpg"
-              alt="Men"
+              src="/images/skincare.jpg"
+              alt="Skin Care"
               className="w-full h-full object-cover"
               fill
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
             <div className="absolute bottom-6 left-6 text-white">
-              <h3 className="text-2xl font-bold">Men</h3>
+              <h3 className="text-2xl font-bold">Skin Care</h3>
               <p className="mt-1 opacity-0 transition-opacity duration-300 hover:opacity-100">
                 Explore collection
               </p>
             </div>
           </div>
 
+          {/* Electronics */}
           <div
             className="relative rounded-xl overflow-hidden cursor-pointer transition-all duration-300 hover:shadow-xl flex-1"
-            onClick={() => handleSearch("jewellery")}
+            onClick={() => handleSearch("electronic")}
           >
             <Image
-              src="/images/jewel5.jpg"
-              alt="Jewelry"
-              fill
+              src="/images/electronic.jpg"
+              alt="Electronics"
               className="w-full h-full object-cover"
+              fill
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
             <div className="absolute bottom-6 left-6 text-white">
-              <h3 className="text-2xl font-bold">Jewelry</h3>
+              <h3 className="text-2xl font-bold">Electronics</h3>
               <p className="mt-1 opacity-0 transition-opacity duration-300 hover:opacity-100">
                 Explore collection
               </p>

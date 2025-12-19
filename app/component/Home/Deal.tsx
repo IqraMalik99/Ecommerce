@@ -3,12 +3,11 @@
 import React from "react";
 import { InfiniteMovingCards } from "../../../components/ui/infinite-moving-cards";
 
-
 export function Deal() {
   return (
-    <div className="h-[30rem] antialiased bg-gray-50! rounded-md flex flex-col dark:bg-black dark:bg-grid-white/[0.05] relative overflow-hidden">
+    <div className="h-[30rem] antialiased bg-[#f9f3ed] rounded-md flex flex-col dark:bg-[#3b2f2a] relative overflow-hidden">
       {/* Heading aligned left with margin */}
-      <h2 className="text-2xl font-bold text-gray-900 mb-4 ml-8">
+      <h2 className="text-2xl font-bold text-[#5a3e2b] mb-4 ml-8 dark:text-[#f9f3ed]">
         Deals of the Day
       </h2>
 

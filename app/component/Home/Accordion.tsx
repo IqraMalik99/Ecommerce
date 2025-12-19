@@ -18,21 +18,21 @@ export function AccordionDemo() {
   const [faqs, setFaqs] = useState<FAQ[]>([
     {
       id: "1",
-      question: "Product Information",
+      question: "Are these products 100% original?",
       answer:
-        "Our flagship product combines cutting-edge technology with sleek design. Built with premium materials, it offers unparalleled performance and reliability.",
+        "Absolutely! All products sold at Opaline are 100% authentic and sourced directly from the official brands, including Huda Beauty, Benetint, and premium hair care lines.",
     },
     {
       id: "2",
-      question: "Shipping Details",
+      question: "What are the payment options?",
       answer:
-        "We offer worldwide shipping through trusted courier partners. Standard delivery takes 3-5 business days, while express shipping ensures delivery within 1-2 business days.",
+        "We offer both Cash on Delivery (COD) and card payments, so you can choose whichever is convenient for you.",
     },
     {
       id: "3",
-      question: "Return Policy",
+      question: "How long does shipping take?",
       answer:
-        "We stand behind our products with a comprehensive 30-day return policy. If you're not completely satisfied, simply return the item in its original condition.",
+        "All orders are shipped within 7 days. We ensure safe packaging and fast delivery to your doorstep.",
     },
   ])
 
@@ -54,8 +54,8 @@ export function AccordionDemo() {
   }, [])
 
   return (
-    <section className="flex justify-center items-center flex-col mx-auto px-4 py-10 bg-gray-50 w-full">
-      <h2 className="text-2xl md:text-3xl font-bold text-center mb-8 text-gray-900 dark:text-white">
+    <section className="flex justify-center items-center flex-col mx-auto px-4 py-10 bg-[#f9f3ed] w-full">
+      <h2 className="text-2xl md:text-3xl font-bold text-center mb-8 text-[#6f4e37]">
         Frequently Asked Questions
       </h2>
 
@@ -66,10 +66,10 @@ export function AccordionDemo() {
       >
         {faqs.map((faq) => (
           <AccordionItem key={faq.id} value={`item-${faq.id}`}>
-            <AccordionTrigger className="text-base font-medium text-gray-800 dark:text-gray-200">
+            <AccordionTrigger className="text-base font-medium text-[#8b5e3c] hover:text-[#a3704b]">
               {faq.question}
             </AccordionTrigger>
-            <AccordionContent className="bg-gray-100 dark:bg-gray-800 rounded-md p-4 sm:p-6 mt-2 text-sm text-gray-700 dark:text-gray-300">
+            <AccordionContent className="bg-[#f2e7dc] rounded-md p-4 sm:p-6 mt-2 text-sm text-[#5a3e2b]">
               {faq.answer}
             </AccordionContent>
           </AccordionItem>

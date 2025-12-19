@@ -1,5 +1,5 @@
 "use client";
-import React, { AnchorHTMLAttributes, ReactNode } from "react";
+import React, { AnchorHTMLAttributes, ReactNode, useState } from "react";
 import { motion, Transition } from "framer-motion";
 import Image from "next/image";
 
@@ -17,37 +17,36 @@ export const MenuItem = ({
   item,
   children,
 }: {
-  setActive: (item: string) => void;
+  setActive: (item: string | null) => void;
   active: string | null;
   item: string;
   children?: React.ReactNode;
 }) => {
+  const isOpen = active === item;
+
   return (
-    <div
-      onMouseEnter={() => setActive(item)}
-      className="relative"
-      role="menuitem"
-    >
+    <div className="relative" role="menuitem">
       <motion.p
+        onClick={() => setActive(isOpen ? null : item)}
         transition={{ duration: 0.3 }}
-        className="cursor-pointer text-xs font-medium text-black hover:text-gray-600 dark:text-white"
+        className="cursor-pointer text-xs sm:text-sm font-medium text-[#6f4e37] hover:text-[#a3704b] dark:text-[#6f4e37]"
       >
         {item}
       </motion.p>
 
-      {active === item && (
+      {isOpen && (
         <motion.div
           initial={{ opacity: 0, scale: 0.85, y: 10 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
+          exit={{ opacity: 0, scale: 0.85, y: 10 }}
           transition={transition}
-          className="absolute top-[calc(100%+0.8rem)] left-1/2 transform -translate-x-1/2 pt-2"
+          className="absolute top-[calc(100%+0.8rem)] left-1/2 -translate-x-1/2 pt-2 z-50"
         >
           <motion.div
-            transition={transition}
             layoutId="active"
             className="bg-white/90 backdrop-blur-md rounded-xl overflow-hidden border border-black/10 dark:bg-black/80 dark:border-white/10 shadow-md"
           >
-            <motion.div layout className="w-[60vw]  max-w-4xl  h-full p-2">
+            <motion.div className="w-[30vw] min-w-[150px] max-w-xs p-2">
               {children}
             </motion.div>
           </motion.div>
@@ -57,18 +56,14 @@ export const MenuItem = ({
   );
 };
 
-export const Menu = ({
-  setActive,
-  children,
-}: {
+export const Menu = ({ setActive, children }: {
   setActive: (item: string | null) => void;
   children: React.ReactNode;
 }) => {
   return (
     <nav
       role="menu"
-      onMouseLeave={() => setActive(null)}
-      className="relative flex justify-center space-x-3 px-2 py-2 rounded-full bg-white/30 backdrop-blur-md border border-white/10 shadow-none"
+      className="relative flex justify-center space-x-3 px-2 py-2 rounded-full bg-white/30 backdrop-blur-md border border-white/10"
     >
       {children}
     </nav>
@@ -81,10 +76,10 @@ export const ProductItem = ({
   href,
   src,
 }: {
-  title: string
-  description: string
-  href: string
-  src: string
+  title: string;
+  description: string;
+  href: string;
+  src: string;
 }) => {
   return (
     <a
@@ -100,17 +95,14 @@ export const ProductItem = ({
         unoptimized
       />
       <div className="flex flex-col">
-        <h4 className="text-sm font-medium text-black dark:text-white">
-          {title}
-        </h4>
-        <p className="text-xs text-neutral-600 dark:text-neutral-300 line-clamp-1">
+        <h4 className="text-sm font-medium text-[#6f4e37] dark:text-[#6f4e37]">{title}</h4>
+        <p className="text-xs text-[#a3704b] dark:text-[#d4a373] line-clamp-1">
           {description}
         </p>
       </div>
     </a>
-  )
-}
-
+  );
+};
 
 export const HoveredLink = ({
   children,
@@ -119,10 +111,38 @@ export const HoveredLink = ({
   return (
     <a
       {...rest}
-      className="inline-flex w-fit  text-neutral-700 dark:text-neutral-200 hover:text-gray-600 text-xs"
+      className="inline-flex w-fit text-[#6f4e37] hover:text-[#a3704b] text-xs sm:text-sm"
     >
       {children}
     </a>
   );
 };
 
+// Example of using the Menu with click toggle
+export const NavbarDemo = () => {
+  const [active, setActive] = useState<string | null>(null);
+
+  return (
+    <Menu setActive={setActive}>
+      <MenuItem item="Products" active={active} setActive={setActive}>
+        <ProductItem
+          title="Lipstick"
+          description="Matte finish lipstick"
+          href="#"
+          src="/images/lipstick.jpg"
+        />
+        <ProductItem
+          title="Foundation"
+          description="Long-lasting foundation"
+          href="#"
+          src="/images/foundation.jpg"
+        />
+      </MenuItem>
+
+      <MenuItem item="Services" active={active} setActive={setActive}>
+        <HoveredLink href="#">Makeup Consultation</HoveredLink>
+        <HoveredLink href="#">Skin Care Tips</HoveredLink>
+      </MenuItem>
+    </Menu>
+  );
+};

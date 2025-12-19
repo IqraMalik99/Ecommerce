@@ -6,7 +6,7 @@ import { FaShoppingCart, FaCrown } from "react-icons/fa";
 import { motion } from "framer-motion";
 import Image from "next/image";
 
-// Define product type instead of using `any`
+// Define product type
 type Product = {
   img: string;
   name: string;
@@ -18,7 +18,6 @@ type Product = {
 
 // Main Component
 export function TopSeller() {
-  // pages state removed since it's unused (add back if needed)
   const defaultItems: Product[] = [
     { img: "/images/jewel4.jpg", name: "Classic Jewelry", price: "45", discount: "20%", topSeller: true, large: true },
     { img: "/images/cloth1.jpg", name: "Running Sneakers", price: "89", discount: "15%", topSeller: false, large: false },
@@ -30,8 +29,8 @@ export function TopSeller() {
   const handleCardClick = (item: Product) => alert(`Clicked on ${item.name}`);
 
   return (
-    <>
-      <h2 className="text-2xl font-bold mb-6 mx-8 text-gray-800 dark:text-gray-100">
+    <section className="py-6 bg-[#f9f3ed] dark:bg-[#2c1f1b]">
+      <h2 className="text-2xl font-bold mb-6 mx-8 text-[#5a3e2b] dark:text-[#f9f3ed]">
         Top Sellers
       </h2>
       <div className="max-w-5xl mx-auto p-1">
@@ -61,19 +60,19 @@ export function TopSeller() {
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="px-4 py-2 text-xs font-semibold tracking-wide 
-               rounded-xl bg-white/10 dark:bg-gray-700/20 
-               backdrop-blur-md border border-white/20 
-               text-gray-800 dark:text-gray-100 
-               shadow-md hover:shadow-lg 
-               hover:bg-white/20 hover:dark:bg-gray-600/30 
-               transition-all duration-300 ease-in-out"
+            className="px-4 py-2 text-xs font-semibold tracking-wide
+              rounded-xl bg-[#f2e7dc] dark:bg-[#3b2f2a]
+              border border-[#d4a373]
+              text-[#5a3e2b] dark:text-[#f9f3ed]
+              shadow-md hover:shadow-lg
+              hover:bg-[#d4a373] hover:dark:bg-[#5a3e2b]
+              transition-all duration-300 ease-in-out"
           >
             Explore More
           </motion.button>
         </div>
       </div>
-    </>
+    </section>
   );
 }
 
@@ -97,33 +96,33 @@ const ProductCard = ({
       whileHover={{ scale: 1.03, boxShadow: "0px 6px 20px rgba(0,0,0,0.15)" }}
       transition={{ type: "spring", stiffness: 200, damping: 15 }}
       onClick={onClick}
-      className="flex flex-col w-full h-auto rounded-xl overflow-hidden 
-                 bg-white/10 dark:bg-gray-900/30 backdrop-blur-sm 
-                 border border-white/20 shadow-sm cursor-pointer"
+      className="flex flex-col w-full h-auto rounded-xl overflow-hidden
+        bg-[#f2e7dc] dark:bg-[#3b2f2a] backdrop-blur-sm
+        border border-[#d4a373] shadow-sm cursor-pointer"
     >
       {/* Image */}
       <div className="relative w-full h-32">
         <Image src={img} alt={name} className="w-full h-full object-cover" fill />
         {discount && (
-          <span className="absolute top-1 left-1 bg-red-500/80 text-white text-xs font-semibold px-1 py-0.5 rounded">
+          <span className="absolute top-1 left-1 bg-[#d4a373] text-white text-xs font-semibold px-1 py-0.5 rounded">
             -{discount}
           </span>
         )}
         {topSeller && (
-          <span className="absolute top-1 right-1 flex items-center gap-1 bg-yellow-400/90 text-black text-xs font-bold px-1 py-0.5 rounded">
+          <span className="absolute top-1 right-1 flex items-center gap-1 bg-[#b9855e] text-white text-xs font-bold px-1 py-0.5 rounded">
             <FaCrown className="w-3 h-3" /> Top
           </span>
         )}
       </div>
 
       {/* Info */}
-      <div className="p-2 flex flex-col gap-1 bg-white/20 dark:bg-gray-800/20 backdrop-blur-sm">
-        <h3 className="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">{name}</h3>
+      <div className="p-2 flex flex-col gap-1">
+        <h3 className="text-sm font-medium text-[#5a3e2b] dark:text-[#f9f3ed] truncate">{name}</h3>
         <div className="flex items-center justify-between">
           {/* Price */}
           <div className="flex items-baseline gap-1">
-            <span className="text-sm font-bold text-gray-900 dark:text-white">${finalPrice}</span>
-            {discount && <span className="text-xs line-through text-gray-400">${price}</span>}
+            <span className="text-sm font-bold text-[#5a3e2b] dark:text-[#f9f3ed]">${finalPrice}</span>
+            {discount && <span className="text-xs line-through text-[#8b5e3c]">${price}</span>}
           </div>
 
           {/* Buttons */}
@@ -131,9 +130,9 @@ const ProductCard = ({
             {/* Cart Button */}
             <button
               onClick={(e) => { e.stopPropagation(); alert(`Added ${name} to cart`); }}
-              className="flex items-center justify-center px-2 py-1 text-xs font-medium"
+              className="flex items-center justify-center px-2 py-1 text-xs font-medium text-[#5a3e2b] dark:text-[#f9f3ed] hover:text-[#d4a373] transition"
             >
-              <FaShoppingCart className="text-lg text-gray-800 dark:text-gray-200 hover:text-green-500 transition" />
+              <FaShoppingCart className="text-lg" />
             </button>
 
             {/* Wishlist Button */}
@@ -141,7 +140,7 @@ const ProductCard = ({
               onClick={(e) => { e.stopPropagation(); setWishlisted(!wishlisted); }}
               className="p-1 rounded-full transition"
             >
-              <Heart className={`text-sm ${wishlisted ? "text-pink-500" : "text-gray-400 dark:text-gray-200 hover:text-pink-500"}`} />
+              <Heart className={`text-sm ${wishlisted ? "text-[#d4a373]" : "text-[#8b5e3c] hover:text-[#d4a373]"}`} />
             </button>
           </div>
         </div>

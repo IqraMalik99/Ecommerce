@@ -33,7 +33,6 @@ export const InfiniteMovingCards = ({
     alert(`Added ${productId} to cart`);
   };
 
-  // ✅ memoize direction and speed setters
   const getDirection = useCallback(() => {
     if (!containerRef.current) return;
     containerRef.current.style.setProperty(
@@ -93,10 +92,10 @@ export const InfiniteMovingCards = ({
           return (
             <li
               key={item.id}
-              className="relative w-[200px] max-w-full shrink-0 rounded-xl border border-zinc-200 
-                         bg-[linear-gradient(180deg,#fafafa,#f5f5f5)] px-4 py-3 
-                         md:w-[280px] dark:border-zinc-700 
-                         dark:bg-[linear-gradient(180deg,#27272a,#18181b)]"
+              className="relative w-[200px] max-w-full shrink-0 rounded-xl border border-[#d7c4b8] 
+                         bg-gradient-to-b from-[#fdf6f0] to-[#f7ece2] px-4 py-3 
+                         md:w-[280px] dark:border-[#4a3c36] 
+                         dark:bg-gradient-to-b dark:from-[#3b2f2a] dark:to-[#2a1f1b]"
             >
               <div className="flex flex-col items-center text-center">
                 {/* Product Image */}
@@ -116,19 +115,19 @@ export const InfiniteMovingCards = ({
                 </div>
 
                 {/* Product Info */}
-                <h3 className="text-base font-semibold text-neutral-800 dark:text-gray-100">
+                <h3 className="text-base font-semibold text-[#5a3e2b] dark:text-[#f9f3ed]">
                   {item.name}
                 </h3>
-                <p className="text-xs text-neutral-500 dark:text-gray-400 line-clamp-2">
+                <p className="text-xs text-[#8c6c58] dark:text-[#c5b5a7] line-clamp-2">
                   {item.description}
                 </p>
 
                 {/* Price Section */}
                 <div className="mt-2 flex items-center gap-2">
-                  <span className="text-xs line-through text-neutral-400">
+                  <span className="text-xs line-through text-[#b8a397] dark:text-[#7a6658]">
                     ${item.price}
                   </span>
-                  <span className="text-sm font-semibold text-black dark:text-white">
+                  <span className="text-sm font-semibold text-[#3b2f2a] dark:text-[#f9f3ed]">
                     ${discountedPrice}
                   </span>
                 </div>
@@ -136,13 +135,13 @@ export const InfiniteMovingCards = ({
                 {/* Add to Cart Button */}
                 <button
                   onClick={() => handleCartClick(item.id)}
-                  className="mt-3 bg-gray-100/20 backdrop-blur-md border border-gray-300/40 
+                  className="mt-3 bg-[#f5e9df]/20 backdrop-blur-md border border-[#d7c4b8]/40 
              rounded-full px-4 py-1.5 flex items-center gap-2 
-             text-sm font-medium text-gray-700 shadow-sm 
-             hover:bg-gray-200/30 hover:shadow-md hover:scale-105 
+             text-sm font-medium text-[#5a3e2b] shadow-sm 
+             hover:bg-[#f5e0cd]/30 hover:shadow-md hover:scale-105 
              transition-all duration-300"
                 >
-                  <FaShoppingCart className="text-gray-600 text-base" />
+                  <FaShoppingCart className="text-[#5a3e2b] text-base" />
                   Add
                 </button>
               </div>
